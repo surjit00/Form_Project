@@ -34,3 +34,5 @@ Route::get('delete/{id}', [RegistrationController::class,'destroy']
 );
 Route::get('edit/{id}', [RegistrationController::class,'edit']
 );
+
+ 

@@ -37,12 +37,25 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'company_name'=>'required|min:5',
+            'mobile'=>'required|regex:/^[0-9]{10}$/',
+            'email'=>'required|email|unique:registration',
+            'date'=>'required',
+            'status'=>'required',
+            'mail_body'=>'required|max:300'
+        ]);
+
+
+
+
          $registration = new Registration;
-         $registration->company_name = $request->get('company');
+         $registration->company_name = $request->get('company_name');
          $registration->email = $request->get('email');
          $registration->mobile = $request->get('mobile');
          $registration->date = $request->get('date');
-         $registration->mail_body = $request->get('mailBody');
+         $registration->mail_body = $request->get('mail_body');
          $registration->status = $request->get('status');
          $registration->save();
 
@@ -71,7 +84,7 @@ class RegistrationController extends Controller
     public function edit(Registration $registration,$id)
     {
         $edit =Registration::find($id);
-        return view('Admin/edit',['edit'=>$edit]);
+        return view('Admin/edit',compact('edit'));
 
     }
 
